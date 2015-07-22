@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <style type="text/css">
+        img
+        {
+            max-width:100%;
+        }
+        body
+        {
+            position:relative;
+        }
+    </style>
+</head>
+<body>
+    <div style="width:100%;">
+        <label  id="articleTitle" style="font:bold 2.0em;">xxxxxxxxxxxxx</label>
+        <label id="articleContent" style="font:1.125em;word-break:break-all">xxxxxxxxxxxxx</label>
+    </div>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+        var url = 'GetArticleByArticleID';
+
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+
+        $(document).ready(function () {
+            $.getJSON(url + '/' + GetQueryString("articleID")).done(function (data) {
+                $('#articleTitle').text(data.title);
+                $('#articleContent').html(data.content);
+            })
+            .fail(function (jqXHR, textStatus, err) {
+                $('#articleTitle').text('Error: ' + err);
+            });
+        });
+    </script>
+</body>
+</html>

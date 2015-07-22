@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="blogDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Articles">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="writerID" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="publishtime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="readtimes" Type="Int32" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="categoryID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Articles_Users" FromRole="Articles" ToRole="Users" />
+    <NavigationProperty Name="Collection" Relationship="Self.FK_Collection_Articles" FromRole="Articles" ToRole="Collection" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Articles" FromRole="Articles" ToRole="Comments" />
+  </EntityType>
+  <EntityType Name="Collection">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="hostID" Type="Int32" Nullable="false" />
+    <Property Name="webpath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="articleID" Type="Int32" />
+    <NavigationProperty Name="Articles" Relationship="Self.FK_Collection_Articles" FromRole="Collection" ToRole="Articles" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Collection_Users" FromRole="Collection" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Comments">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="commenterID" Type="Int32" Nullable="false" />
+    <Property Name="articleID" Type="Int32" Nullable="false" />
+    <Property Name="content" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="commentTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Articles" Relationship="Self.FK_Comments_Articles" FromRole="Comments" ToRole="Articles" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Comments_Users" FromRole="Comments" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="HeadImg">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="imgpath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Users_HeadImg" FromRole="HeadImg" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Info">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sex" Type="Boolean" Nullable="false" />
+    <Property Name="introduce" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="birthday" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="QQ" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="signtime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Users_Info" FromRole="Info" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Messages">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="senderID" Type="Int32" Nullable="false" />
+    <Property Name="receiverID" Type="Int32" Nullable="false" />
+    <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sendtime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Messages_ReceiverUsers" FromRole="Messages" ToRole="Users" />
+    <NavigationProperty Name="Users1" Relationship="Self.FK_Messages_SenderUsers" FromRole="Messages" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="headimgID" Type="Int32" Nullable="false" />
+    <Property Name="rgtime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="infoID" Type="Int32" Nullable="false" />
+    <Property Name="bloghot" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Articles" Relationship="Self.FK_Articles_Users" FromRole="Users" ToRole="Articles" />
+    <NavigationProperty Name="Collection" Relationship="Self.FK_Collection_Users" FromRole="Users" ToRole="Collection" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Users" FromRole="Users" ToRole="Comments" />
+    <NavigationProperty Name="HeadImg" Relationship="Self.FK_Users_HeadImg" FromRole="Users" ToRole="HeadImg" />
+    <NavigationProperty Name="Info" Relationship="Self.FK_Users_Info" FromRole="Users" ToRole="Info" />
+    <NavigationProperty Name="Messages" Relationship="Self.FK_Messages_ReceiverUsers" FromRole="Users" ToRole="Messages" />
+    <NavigationProperty Name="Messages1" Relationship="Self.FK_Messages_SenderUsers" FromRole="Users" ToRole="Messages" />
+  </EntityType>
+  <Association Name="FK_Articles_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Articles" Type="Self.Articles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Articles">
+        <PropertyRef Name="writerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Collection_Articles">
+    <End Role="Articles" Type="Self.Articles" Multiplicity="0..1" />
+    <End Role="Collection" Type="Self.Collection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articles">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Collection">
+        <PropertyRef Name="articleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_Articles">
+    <End Role="Articles" Type="Self.Articles" Multiplicity="1" />
+    <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articles">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="articleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Collection_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Collection" Type="Self.Collection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Collection">
+        <PropertyRef Name="hostID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="commenterID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_HeadImg">
+    <End Role="HeadImg" Type="Self.HeadImg" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HeadImg">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="headimgID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Info">
+    <End Role="Info" Type="Self.Info" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Info">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="infoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messages_ReceiverUsers">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="receiverID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messages_SenderUsers">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="senderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="blogDataEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Articles" EntityType="Self.Articles" />
+    <EntitySet Name="Collection" EntityType="Self.Collection" />
+    <EntitySet Name="Comments" EntityType="Self.Comments" />
+    <EntitySet Name="HeadImg" EntityType="Self.HeadImg" />
+    <EntitySet Name="Info" EntityType="Self.Info" />
+    <EntitySet Name="Messages" EntityType="Self.Messages" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK_Articles_Users" Association="Self.FK_Articles_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Articles" EntitySet="Articles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Collection_Articles" Association="Self.FK_Collection_Articles">
+      <End Role="Articles" EntitySet="Articles" />
+      <End Role="Collection" EntitySet="Collection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_Articles" Association="Self.FK_Comments_Articles">
+      <End Role="Articles" EntitySet="Articles" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Collection_Users" Association="Self.FK_Collection_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Collection" EntitySet="Collection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_Users" Association="Self.FK_Comments_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_HeadImg" Association="Self.FK_Users_HeadImg">
+      <End Role="HeadImg" EntitySet="HeadImg" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Info" Association="Self.FK_Users_Info">
+      <End Role="Info" EntitySet="Info" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messages_ReceiverUsers" Association="Self.FK_Messages_ReceiverUsers">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messages_SenderUsers" Association="Self.FK_Messages_SenderUsers">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <FunctionImport Name="addHeadimg">
+      <Parameter Name="imgPath" Mode="In" Type="String" />
+      <Parameter Name="imgID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="addInfo">
+      <Parameter Name="sex" Mode="In" Type="Boolean" />
+      <Parameter Name="birthday" Mode="In" Type="DateTime" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="qq" Mode="In" Type="String" />
+      <Parameter Name="signtime" Mode="In" Type="DateTime" />
+      <Parameter Name="infoID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

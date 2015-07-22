@@ -1,0 +1,343 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="BLOG_TEST.Site"%>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title id="webTitle" runat="server">--ITBLOG</title>
+     <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="kindeditor-4.1.10/themes/default/default.css" rel="stylesheet" />
+    <link href="kindeditor-4.1.10/plugins/code/prettify.css" rel="stylesheet" />
+    <script src="Scripts/baidu_jquery.min.js"></script>
+    <script src="Scripts/baidu_bootstrap.min.js"></script>
+    <script src="kindeditor-4.1.10/kindeditor-min.js"></script>
+	<script src="kindeditor-4.1.10/lang/zh_CN.js"></script>
+    <%--<script>
+        function showTextarea(K) {
+            var editor1 = K.create('#MainContent_blogTextarea', {
+                cssPath: 'kindeditor-4.1.10/plugins/code/prettify.css',
+                uploadJson: 'kindeditor-4.1.10/asp.net/upload_json.ashx',
+                fileManagerJson: 'kindeditor-4.1.10/asp.net/file_manager_json.ashx',
+                allowFileManager: false,
+                allowPreviewEmoticons: true,
+                allowImageUpload: false,
+                items: [
+						'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+						'removeformat', 'code', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+						'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+            });
+            prettyPrint();
+        }
+        KindEditor.ready(function (K) {
+            showTextarea(K);
+        });
+	</script>
+    <script>
+        function showmodal()
+        {
+            $('#myModal').modal('show');
+        }
+        function shutdown1() {
+            $("#SignButton").attr("Disabled", true);
+        }
+        function shutdown2() {
+            $("#LoginButton").attr("Disabled", true);
+        }
+        function shutdownall() {
+            $("#SignButton").attr("Disabled", true);
+            $("#LoginButton").attr("Disabled", true);
+            $("#MainContent_editButton").attr("Disabled", true);
+        }
+        function shutdownCollection() {
+            $("#collectButton").attr("Disabled", true);
+        }
+        function blogPublish() {
+            shutdownall();
+            edit();
+        }
+        function edit() {
+            $("#MainContent_myCollectBtn").attr("Disabled", true);
+            $("#MainContent_myBlogBtn").attr("Disabled", true);
+            $("#MainContent_myMessageBtn").attr("Disabled", true);
+        }
+        function reDirect() {
+            self.location = 'UserInfo.aspx';
+        }
+        function toSendMessages() {
+            self.location = 'UserSendMessages.aspx';
+        }
+        function toWriteBlog() {
+            self.location = 'UserArticlesManager_addArticles.aspx';
+        }
+        function upload() {
+            edit();
+            shutdownall();
+        }
+        function userInfoPrepare() {
+            $("#SignButton").attr("Disabled", true);
+            $("#LoginButton").attr("Disabled", true);
+            $(".editImg").toggle();
+            $("#MainContent_editButton").hide();
+            $("#MainContent_editButton").attr("Disabled", true);
+            $("#MainContent_Info_userSexTextBox").hide();
+            $("#MainContent_Info_userBirthTextBox").hide();
+            $("#MainContent_Info_userEmailTextBox").hide();
+            $("#MainContent_Info_userQQTextBox").hide();
+            $("#MainContent_Info_userIntroduceTextBox").hide();
+        }
+        $(document).ready(function () {
+            $(".latestBlogTitle").click(function () {
+                $(".latestBlog").slideToggle("slow");
+            });
+            $(".editImg").click(function () {
+                $("#MainContent_Info_userSexLabel").hide();
+                $("#MainContent_Info_userSexTextBox").show();
+                $("#MainContent_Info_userBirthLabel").hide();
+                $("#MainContent_Info_userBirthTextBox").show();
+                $("#MainContent_Info_userEmailLabel").hide();
+                $("#MainContent_Info_userEmailTextBox").show();
+                $("#MainContent_Info_userQQLabel").hide();
+                $("#MainContent_Info_userQQTextBox").show();
+                $("#MainContent_Info_userIntroduceLabel").hide();
+                $("#MainContent_Info_userIntroduceTextBox").show();
+                $("#MainContent_editButton").show();
+                $("#MainContent_editButton").attr("Disabled", false);
+            });
+            $(".hotBlogTitle").click(function () {
+                $(".hotBlog").slideToggle("slow");
+            });
+            $(".UserInfo").mouseenter(function () {
+                $(".editImg").toggle();
+            });
+            $(".UserInfo").mouseleave(function () {
+                $(".editImg").toggle();
+            });
+        });
+    </script>--%>
+    <style type="text/css">
+        #log_in_area
+        {
+            width:400px;
+            height:400px;
+            margin-left:auto;
+            margin-right:auto;
+            text-align:center;
+        }
+        .style1
+        {
+            width:108px;
+        }
+    </style>
+    <asp:ContentPlaceHolder ID="Head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body style="background-color:#ffffff">
+    <form id="form1" runat="server">
+        <%--<asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>--%>
+       <%-- <!--导航条-->
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="Index.aspx" role="button">ITBLOG</a>
+                <img alt="brand" src="images/nav_icon.png" style="float:left;"/>
+                <asp:Label ID="welcomeUserLabel" runat="server" Text="" ForeColor="#ffffff" Font-Size="15px" CssClass="navbar-text"></asp:Label>
+            </div>
+        <asp:LoginView ID="loginView" runat="server" ViewStateMode="Disabled">
+            <AnonymousTemplate>
+                <ul class="nav navbar-nav navbar-right">
+                    <li style="margin-right:5px; top: 0px; left: 0px;"><button type="button" class="btn btn-default navbar-btn "  data-toggle="modal" data-target="#myModal" >登陆</button></li>
+                    <li style="margin-right:50px;"><button type="button" class="btn btn-default navbar-btn " data-toggle="modal" data-target="#mySignModal">注册</button></li>
+                    
+                </ul>
+            </AnonymousTemplate>
+            <LoggedInTemplate>
+                <ul class="nav navbar-nav navbar-right">
+                    <li style="margin-right:5px;">
+                        <button type="button" class="btn btn-default navbar-btn" aria-label="Left Align" title="收藏" data-toggle="modal" data-target="#myCollectionModal">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                        </button>
+                    </li>
+                    <li style="margin-right:5px;">
+                        <button type="button" class="btn btn-default navbar-btn" aria-label="Left Align" title="发消息" onclick="toSendMessages()">
+                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                        </button> 
+                    </li>
+                    <li style="margin-right:5px;">
+                        <button type="button" class="btn btn-default navbar-btn" aria-label="Left Align" title="写博客" onclick="toWriteBlog()">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </button> 
+                    </li>
+                    <li style="margin-right:50px;">
+                        <button type="button" class="btn btn-default navbar-btn" aria-label="Left Align" title="个人中心" onclick="reDirect()">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        </button> 
+                    </li>
+                </ul>
+            </LoggedInTemplate>
+        </asp:LoginView>
+            
+            </div>
+        </div>--%>
+
+        <!--页面主体部分-->
+        <div class="container body-content" >
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <p>&copy; <%: DateTime.Now.Year %> - ITBLOG</p>
+            </footer>
+        </div>
+
+      <%--<!--登陆模态框-->  
+      <div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+           <div class="modal-dialog modal-sm">
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                       <h4 class="modal-title" id="myModalLabel">用户登陆</h4>
+                   </div> 
+                   <div class="modal-body">
+                       <div class=" form-horizontal">
+                           <asp:PlaceHolder runat="server" ID="FailureHolder" Visible="false">
+                                <p class="text-danger"><asp:Literal runat="server" ID="FailureText" /></p>
+                           </asp:PlaceHolder>
+                            <table class="form-group">
+                                <tr>
+                                <td><asp:Label ID="UsernameLabel1" runat="server" AssociatedControlID="Username" CssClass="col-md-2 control-label" Width="80px">用户名:</asp:Label></td>
+                                <td><asp:TextBox ID="Username" runat="server" CssClass="form-control" Width="180px" ></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="Usernamecheck1" ControlToValidate="Username" runat="server" CssClass="text-danger" ErrorMessage="用户名不能为空" Display="Dynamic" SetFocusOnError="false"></asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator ID="Usernamecheck2" runat="server" ControlToValidate="UserName" CssClass="text-danger" ErrorMessage="用户名必需为英文或数字的组合" ValidationExpression="^\w+$" Display="Dynamic"></asp:RegularExpressionValidator></td>
+                                </tr>
+                            </table>
+                            <table class="form-group">
+                                <tr>
+                                <td><asp:Label ID="Label1" runat="server" AssociatedControlID="Password" CssClass="col-md-2 control-label" Width="80px">密码:</asp:Label></td>
+                                <td><asp:TextBox ID="Password" runat="server" CssClass="form-control" TextMode="Password" MaxLength="16" Width="180px" >
+                                </asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="Password" CssClass="text-danger" runat="server" ErrorMessage="密码栏不能为空" Display="Dynamic" SetFocusOnError="false"></asp:RequiredFieldValidator></td>
+                                </tr>
+                            </table>
+                       </div>
+                   </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                     <asp:Button ID="LoginButton" runat="server" Cssclass="btn btn-primary" OnClick="LoginButton_Click" Text="登陆" OnClientClick="return shutdown1()"></asp:Button>
+                </div>
+              </div>
+           </div>
+         </div>
+      <!--注册模态框--> 
+      <div class="modal fade bs-example-modal-sm" id="mySignModal" tabindex="-1" role="dialog" aria-labelledby="mySignModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                       <h4 class="modal-title" id="mySignModalLabel">用户注册</h4>
+                   </div>
+                   <div class="modal-body">
+                       <div class="form-horizontal">
+                           <asp:Panel ID="SignPanel" runat="server" Visible="true">
+                           <table class="form-group">
+                               <tr>
+                                   <td><asp:Label ID="UsernameLabel" runat="server" Text="用户名:" CssClass="col-md-2 control-label" Width="120px"></asp:Label></td>
+                                   <td> <asp:TextBox ID="UsernameTextBox" runat="server" Width="120px" CssClass="form-control"></asp:TextBox>
+                               <asp:RequiredFieldValidator ID="Usernamecheck3" ControlToValidate="UsernameTextBox" runat="server"  CssClass="text-danger" ErrorMessage="用户名不能为空" Display="Dynamic" SetFocusOnError="false" ></asp:RequiredFieldValidator>
+                               <asp:RegularExpressionValidator ID="Usernamecheck4" runat="server" ControlToValidate="UsernameTextBox" CssClass="text-danger" ErrorMessage="用户名格式错误" ValidationExpression="^\w+$" Display="Dynamic"></asp:RegularExpressionValidator></td>
+                               </tr>  
+                           </table>
+                           <table class="form-group">
+                               <tr>
+                                   <td><asp:Label ID="PasswordLabel" runat="server" Text="密码:" CssClass="col-md-2 control-label" Width="120px"></asp:Label></td>
+                                   <td><asp:TextBox ID="PasswordTextBox" runat="server" Width="120px" TextMode="Password" MaxLength="16" CssClass="form-control"></asp:TextBox>
+                               <asp:RegularExpressionValidator ID="Pwdcheck2" runat="server" ControlToValidate="PasswordTextBox" CssClass="text-danger" ErrorMessage="密码格式错误" ValidationExpression="^[\w,\S]{6,}$" Display="Dynamic" ></asp:RegularExpressionValidator>
+                               <asp:RequiredFieldValidator ID="Pwdcheck1" ControlToValidate="PasswordTextBox" runat="server" CssClass="text-danger" ErrorMessage="密码栏不能为空" Display="Dynamic" SetFocusOnError="false"></asp:RequiredFieldValidator></td>
+                               </tr>   
+                           </table>
+                           <table class="form-group">
+                               <tr>
+                                   <td><asp:Label ID="ConfirmpwdLabe" runat="server" Text="确认密码:" CssClass="col-md-2 control-label" Width="120px"></asp:Label></td>
+                                   <td><asp:TextBox ID="ConfirmpwdTextBox" runat="server" Width="120px" TextMode="Password" MaxLength="16" CssClass="form-control"></asp:TextBox>
+                               <asp:RequiredFieldValidator ID="Pwdcheck3" ControlToValidate="ConfirmpwdTextBox" runat="server" CssClass="text-danger" ErrorMessage="密码栏不能为空" Display="Dynamic" SetFocusOnError="false" ></asp:RequiredFieldValidator>
+                               <asp:CompareValidator ID="Pwdcheck4" runat="server" ControlToValidate="ConfirmpwdTextBox" ControlToCompare="PasswordTextBox" CssClass="text-danger" ErrorMessage="确认密码与密码不符" ></asp:CompareValidator></td>
+                               </tr>                               
+                           </table>
+                           <table class="form-group">
+                               <tr>
+                                   <td><asp:Label ID="SexLabel" runat="server" Text="性别:" CssClass="col-md-2 control-label" Width="120px"></asp:Label></td>
+                                   <td><asp:RadioButtonList ID="SexRadioButtonList" runat="server" RepeatColumns="2" RepeatDirection="Horizontal" CellSpacing="20" Width="120px" >
+                               <asp:ListItem Text="男" Value="1" ></asp:ListItem><asp:ListItem Text="女" Value="0" ></asp:ListItem>
+                               </asp:RadioButtonList>
+                               <asp:RequiredFieldValidator ID="Sexcheck" ControlToValidate="SexRadioButtonList" runat="server" CssClass="text-danger" ErrorMessage="请选择性别" Display="Dynamic" SetFocusOnError="false" ></asp:RequiredFieldValidator></td>
+                               </tr>
+                           </table>
+                           <table class="form-group">
+                               <tr>
+                                   <td><asp:Label ID="BirthLabel" runat="server" Text="出生年月日:" CssClass="col-md-2 control-label" Width="120px"></asp:Label></td>
+                                   <td><asp:DropDownList ID="YearDropDownList" runat="server" ></asp:DropDownList><asp:Label ID="YearLabel" runat="server" Text="年" ></asp:Label>
+                               <asp:DropDownList ID="MonthDropDownList" runat="server"  ></asp:DropDownList><asp:Label ID="MonthLabel" runat="server" Text="月" ></asp:Label></td>
+                               </tr>
+                           </table>
+                           <table class="form-group">
+                               <tr>
+                                   <td><asp:Label ID="EmailLabel" runat="server" Text="E-mail:" CssClass="col-md-2 control-label" Width="120px"></asp:Label></td>
+                                   <td><asp:TextBox ID="EmailTextBox" runat="server" Width="120px" CssClass="form-control"></asp:TextBox>
+                               <asp:RegularExpressionValidator ID="Emailcheck" runat="server" ControlToValidate="EmailTextBox" CssClass="text-danger"  ErrorMessage="邮箱格式错误" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Display="Dynamic" ></asp:RegularExpressionValidator></td>
+                               </tr>
+                           </table>
+                           <table class="form-group">
+                               <tr>
+                                   <td> <asp:Label ID="QQLabel" runat="server" Text="QQ:" CssClass="col-md-2 control-label" Width="120px"></asp:Label></td>
+                                   <td><asp:TextBox ID="QQTextBox" runat="server" Width="120px" CssClass="form-control"></asp:TextBox>
+                               <asp:RegularExpressionValidator ID="QQcheck" runat="server" ControlToValidate="QQTextBox" CssClass="text-danger" ErrorMessage="QQ号格式错误" ValidationExpression="^\d{4,}$" Display="Dynamic" ></asp:RegularExpressionValidator></td>
+                               </tr>          
+                           </table></asp:Panel>
+                       </div>
+                   </div>
+                   <div class="modal-footer">
+                       <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                     <asp:Button ID="SignButton" runat="server" Cssclass="btn btn-primary" Text="注册" OnClick="SignButton_Click" OnClientClick="return shutdown2()"></asp:Button>
+                   </div>
+               </div>
+            </div>
+        </div>
+      <!--收藏模态框-->
+      <div class="modal fade bs-example-modal-lg" id="myCollectionModal" tabindex="-1" role="dialog" aria-labelledby="mySignModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                       <h4 class="modal-title" id="myCollectionModalLabel">收藏</h4>
+                   </div>
+                   <div class="modal-body">
+                       <div class="form-horizontal">
+                           <table class="form-group" style="width:100%;">
+                               <tr>
+                                   <td style="width:12%;"><span class="col-md-2 control-label" style="width:100%;" >标题:</span></td>
+                                   <td style="width:86%;"> <asp:TextBox ID="TitleTextBox" runat="server" style="width:100%;" CssClass="form-control"></asp:TextBox></td>
+                               </tr>  
+                           </table>
+                           <table class="form-group" style="width:100%;">
+                               <tr>
+                                   <td style="width:12%;"><span class="col-md-2 control-label" style="width:100%;">网址:</span></td>
+                                   <td style="width:86%;"> <asp:TextBox ID="webTextBox" runat="server" style="width:100%;" CssClass="form-control"></asp:TextBox></td>
+                               </tr>  
+                           </table>
+                           <table class="form-group" style="width:100%;">
+                               <tr>
+                                   <td style="width:12%;"><span class="col-md-2 control-label" style="width:100%;">摘要:</span></td>
+                                   <td style="width:86%;"> <asp:TextBox ID="descriptionTextBox" runat="server" style="width:100%;" CssClass="form-control" TextMode="MultiLine" Rows="5"></asp:TextBox></td>
+                               </tr>  
+                           </table>
+                       </div>
+                   </div>
+                   <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                     <asp:Button ID="collectButton" runat="server" Cssclass="btn btn-primary" Text="收藏" OnClientClick="return shutdown2()" OnClick="collectButton_Click"></asp:Button>
+                   </div>
+               </div>
+          </div>
+      </div>--%>
+    </form>
+</body>
+</html>

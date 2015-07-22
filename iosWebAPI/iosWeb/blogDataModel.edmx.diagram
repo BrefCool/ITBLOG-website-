@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4ba360718bda4f9eaed980f55b135d41" Name="Diagram1">
+        <EntityTypeShape EntityType="blogDataModel.Articles" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="blogDataModel.Collection" Width="1.5" PointX="7.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="blogDataModel.Comments" Width="1.5" PointX="10.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="blogDataModel.HeadImg" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="blogDataModel.Info" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="blogDataModel.Messages" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="blogDataModel.Users" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="blogDataModel.FK_Articles_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="blogDataModel.FK_Collection_Articles" ManuallyRouted="false" />
+        <AssociationConnector Association="blogDataModel.FK_Comments_Articles" ManuallyRouted="false" />
+        <AssociationConnector Association="blogDataModel.FK_Collection_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="blogDataModel.FK_Comments_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="blogDataModel.FK_Users_HeadImg" ManuallyRouted="false" />
+        <AssociationConnector Association="blogDataModel.FK_Users_Info" ManuallyRouted="false" />
+        <AssociationConnector Association="blogDataModel.FK_Messages_ReceiverUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="blogDataModel.FK_Messages_SenderUsers" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

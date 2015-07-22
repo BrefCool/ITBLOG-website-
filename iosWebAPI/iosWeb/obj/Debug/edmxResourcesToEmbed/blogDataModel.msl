@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="blogDataModelStoreContainer" CdmEntityContainer="blogDataEntities">
+    <EntitySetMapping Name="Articles">
+      <EntityTypeMapping TypeName="blogDataModel.Articles">
+        <MappingFragment StoreEntitySet="Articles">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="writerID" ColumnName="writerID" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="publishtime" ColumnName="publishtime" />
+          <ScalarProperty Name="readtimes" ColumnName="readtimes" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Collection">
+      <EntityTypeMapping TypeName="blogDataModel.Collection">
+        <MappingFragment StoreEntitySet="Collection">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="hostID" ColumnName="hostID" />
+          <ScalarProperty Name="webpath" ColumnName="webpath" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="articleID" ColumnName="articleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="blogDataModel.Comments">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="commenterID" ColumnName="commenterID" />
+          <ScalarProperty Name="articleID" ColumnName="articleID" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="commentTime" ColumnName="commentTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HeadImg">
+      <EntityTypeMapping TypeName="blogDataModel.HeadImg">
+        <MappingFragment StoreEntitySet="HeadImg">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="imgpath" ColumnName="imgpath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Info">
+      <EntityTypeMapping TypeName="blogDataModel.Info">
+        <MappingFragment StoreEntitySet="Info">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="sex" ColumnName="sex" />
+          <ScalarProperty Name="introduce" ColumnName="introduce" />
+          <ScalarProperty Name="birthday" ColumnName="birthday" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="QQ" ColumnName="QQ" />
+          <ScalarProperty Name="signtime" ColumnName="signtime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="blogDataModel.Messages">
+        <MappingFragment StoreEntitySet="Messages">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="senderID" ColumnName="senderID" />
+          <ScalarProperty Name="receiverID" ColumnName="receiverID" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="sendtime" ColumnName="sendtime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="blogDataModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="headimgID" ColumnName="headimgID" />
+          <ScalarProperty Name="rgtime" ColumnName="rgtime" />
+          <ScalarProperty Name="infoID" ColumnName="infoID" />
+          <ScalarProperty Name="bloghot" ColumnName="bloghot" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="addHeadimg" FunctionName="blogDataModel.Store.addHeadimg" />
+    <FunctionImportMapping FunctionImportName="addInfo" FunctionName="blogDataModel.Store.addInfo" />
+  </EntityContainerMapping>
+</Mapping>
